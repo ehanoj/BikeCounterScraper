@@ -1,5 +1,5 @@
 set terminal pngcairo dashed background rgb 'white' enhanced fontscale 1.0 size 1900, 1000 dashlength .5
-set output 'BikeCounterBrnoTotal.png'
+set output 'csvSumTotalDay/BikeCounterBrnoTotal.png'
 #set output outputVAR
 set datafile separator ','
 
@@ -15,20 +15,30 @@ set xdata time
 set timefmt "%Y-%m-%d"
 set format x "%Y-%m-%d"
 #set xtics format "%H"
+#set xrange ["2020-06-01":"2020-07-05"]
 #set xrange ["2020-06-22":"2020-06-28"]
-set xrange ["2020-06-01":*]
-#set xtics autofreq
-do for [indx in "06 13 20 27"] {
-  seco = indx + 1
-  set object indx rectangle from "2020-06-".indx, graph 0 to "2020-06-".seco, graph .7 fs solid fc rgb "#EEEEEE" behind
-  set label "Weekend" at "2020-06-06", graph .71
+
+epoch(s) = int(system(sprintf("date -d \"%s\" +%s", s)))
+xstart = epoch("2020-06-01")
+xend = epoch("2020-07-13")
+set print
+print xstart, xend
+
+set xrange [xstart:xend]
+
+do for [indx = xstart+6.5*24*60*60 : xend : 7*24*60*60] {
+   seco = indx + 1*24*60*60
+   set object indx rectangle center indx, graph .7/2 size 2*24*60*60, graph .7 fs solid fc rgb "#EEEEEE" lw 0 behind
+   set label "Weekend" at indx, graph .68 right textcolor rgb "#AAAAAA" offset 2,0
+  # set label "Weekend".indx." ".strftime('%Y-%m-%d',indx) at "2020-06-01", graph .71
 }
 
-#set xtics 3*60*60
 #set for [i=1:num_days] xtics add (strftime('%Y-%m-%d', t_start+(i-1)*24*60*60) t_start+(i-1)*24*60*60)
 #set format x '%H'
 
-#set xtics rotate by 25 right
+set xtics xstart, 24*60*60
+#set xtics autofreq
+set xtics rotate by 25 right
 #set xtics out offset 0,0
 
 set termoption dash
@@ -37,8 +47,8 @@ set style data lines
 #set yrange [0:*<400]
 #set yrange [0:400]
 
-set ylabel "Count (day)"
-set title "{/*1.5 Cyclist per day from permanent videodetectors in Brno}\n data: BKOM a.s., analýza: Brno na kole z.s. 2020"
+set ylabel "Cyclists per day"
+set title "{/*1.5 Cyclists per day via permanent videodetectors in Brno}\n data: BKOM a.s., analýza: Brno na kole z.s. 2020"
 
 #set key fixed right top vertical Right noreverse noenhanced autotitle nobox
 #set style increment default
