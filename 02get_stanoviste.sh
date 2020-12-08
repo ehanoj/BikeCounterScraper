@@ -20,9 +20,8 @@ stan[BIvanovice2]=65
 stan[BIvanovice1]=69
 
 # -------------------
-
-for item in "${!stan[@]}"; 
-  do
+make_func(){
+    item=$1
     row=${stan[$item]}
     oufile=${item}.csv
     printf "$item is in $row > $oufile \n"
@@ -39,6 +38,15 @@ for item in "${!stan[@]}";
         (cat $infile ; echo) | sed -n "$((row))p" | sed "s/365 dnů/$hour/g" | sed -e 's/\(.\{10\}\)./\1 /' >> csvSum/$oufile
     done
     awk -F, -v OFS=, '{ if (NR > 2) {co=c;po=p; c=$2+$4;p=$3+$5; if (NR > 3) {dc=c-co;dp=p-po; print $1,dc,dp}} else {print $0} }' csvSum/$oufile > csvSumTotal/$oufile
+}
+
+
+for item in "${!stan[@]}"; 
+do
+    make_func "$item" &
 done
+
+wait
+echo "Done!"
 
 

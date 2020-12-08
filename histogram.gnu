@@ -25,8 +25,8 @@ num_days = 2 + (int(STATS_max) - t)/(24*60*60)
 set xdata time
 set timefmt "%Y-%m-%d %H:%M"
 #set format x "%Y-%m-%d"
-xstart = "2020-07-13"
-xend = "2020-07-20"
+xstart = "2020-11-16"
+xend = "2020-11-23"
 set xrange [xstart:xend]
 set xtics format "%H"
 set xtics 3*60*60

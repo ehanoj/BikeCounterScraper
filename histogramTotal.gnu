@@ -17,8 +17,9 @@ set xdata time
 set timefmt "%Y-%m-%d"
 set format x "%Y-%m-%d"
 
-xstart = "2020-06-01"
-xend = "2020-07-26"
+#xstart = "2020-06-01"
+xstart = "2020-08-31"
+xend = "2020-12-07"
 set xrange [xstart:xend]
 set xtics xstart, 7*24*60*60
 #set xtics rotate by 90 right
