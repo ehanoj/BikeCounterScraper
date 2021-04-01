@@ -25,8 +25,8 @@ num_days = 2 + (int(STATS_max) - t)/(24*60*60)
 set xdata time
 set timefmt "%Y-%m-%d %H:%M"
 #set format x "%Y-%m-%d"
-xstart = "2020-11-16"
-xend = "2020-11-23"
+xstart = "2021-03-22"
+xend = "2021-03-29"
 set xrange [xstart:xend]
 set xtics format "%H"
 set xtics 3*60*60
@@ -49,7 +49,7 @@ do for [indx = xstart+6*24*60*60 : xend : 7*24*60*60] {
 
 # axis Y
 set ylabel "Count of users per hour"
-set yrange [0:400]
+set yrange [0:500]
 set ytics nomirror
 set y2label "Rains per hour [millimeter]"
 set y2range [0:20]

@@ -19,11 +19,11 @@ set format x "%Y-%m-%d"
 
 #xstart = "2020-06-01"
 xstart = "2020-08-31"
-xend = "2020-12-31"
+xend = "2021-03-30"
 set xrange [xstart:xend]
 set xtics xstart, 7*24*60*60
-#set xtics rotate by 90 right
-#set xtics out offset 0,0
+set xtics rotate by 90 right
+set xtics out offset 0,0
 
 # axis Y
 set ylabel "Cyclists per day"
